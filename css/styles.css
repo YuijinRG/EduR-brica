@@ -1,0 +1,626 @@
+/* ==========================================================================
+   EduRúbrica — Hoja de estilos global
+   Estructura: 1. Variables  2. Reset  3. Utilidades base  4. Layout
+   5. Panel de branding  6. Tarjetas de selección de rol  7. Formularios
+   8. Botones  9. Componentes de auth  10. Responsivo (mobile-first)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES CSS (Design Tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta — Branding / Marca */
+  --color-brand-dark: #0a1733;
+  --color-brand-mid: #15379e;
+  --color-brand-bright: #2f5fe6;
+  --gradient-brand: linear-gradient(150deg, var(--color-brand-dark) 0%, var(--color-brand-mid) 55%, var(--color-brand-bright) 100%);
+
+  /* Paleta — Identidad por rol */
+  --color-student: #2d6cf6;
+  --color-student-dark: #1550e0;
+  --color-student-soft: #e8f0fe;
+
+  --color-teacher: #7c3aed;
+  --color-teacher-dark: #6224d1;
+  --color-teacher-soft: #f1e9fe;
+
+  /* Neutros / superficie */
+  --color-bg: #f4f7f9;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* Texto */
+  --color-text-primary: #101828;
+  --color-text-secondary: #475467;
+  --color-text-muted: #98a2b3;
+  --color-text-on-brand: #ffffff;
+
+  /* Estados */
+  --color-danger: #e11d48;
+  --color-success: #12b76a;
+
+  /* Tipografía */
+  --font-base: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Radios y sombras */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 20px 40px -12px rgba(16, 24, 40, 0.18);
+  --shadow-card-hover: 0 16px 32px -8px rgba(16, 24, 40, 0.16);
+
+  /* Transiciones */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET Y BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Accesibilidad: foco visible consistente en toda la app */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-brand-bright);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Respeta la preferencia de reducción de movimiento del usuario */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. UTILIDADES BASE
+   -------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-bright);
+}
+
+/* --------------------------------------------------------------------------
+   4. LAYOUT PRINCIPAL (Auth Split-Screen con CSS Grid)
+   -------------------------------------------------------------------------- */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+@media (min-width: 960px) {
+  .auth-layout {
+    grid-template-columns: minmax(360px, 42%) 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. PANEL DE BRANDING (columna izquierda)
+   -------------------------------------------------------------------------- */
+.brand-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-6);
+  background: var(--gradient-brand);
+  color: var(--color-text-on-brand);
+  overflow: hidden;
+}
+
+/* Textura decorativa sutil, no interfiere con el contenido ni la lectura */
+.brand-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.brand-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-header__logo {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(15, 23, 42, 0.32);
+  font-size: 1.1rem;
+}
+
+.brand-header__name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brand-body {
+  position: relative;
+}
+
+.brand-body h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+.brand-body__lead {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 32ch;
+  margin-bottom: var(--space-6);
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feature-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.feature-list__item {
+  align-items: center;
+}
+
+.feature-list__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: rgba(15, 23, 42, 0.32);
+  font-size: 0.85rem;
+}
+
+.feature-list__text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.brand-footer {
+  position: relative;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   6. PANEL DERECHO Y TARJETAS DE SELECCIÓN DE ROL (index.html)
+   -------------------------------------------------------------------------- */
+.selection-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.selection-panel__inner {
+  width: 100%;
+  max-width: 420px;
+}
+
+.selection-panel__heading {
+  margin-bottom: var(--space-7);
+}
+
+.selection-panel__heading h2 {
+  font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+  margin-bottom: var(--space-2);
+}
+
+.selection-panel__heading p {
+  color: var(--color-text-secondary);
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.role-card:hover,
+.role-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.role-card__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  font-size: 1.4rem;
+}
+
+.role-card--student .role-card__icon {
+  background: var(--color-student-soft);
+  color: var(--color-student);
+}
+
+.role-card--student:hover,
+.role-card--student:focus-visible {
+  border-color: var(--color-student);
+}
+
+.role-card--teacher .role-card__icon {
+  background: var(--color-teacher-soft);
+  color: var(--color-teacher);
+}
+
+.role-card--teacher:hover,
+.role-card--teacher:focus-visible {
+  border-color: var(--color-teacher);
+}
+
+.role-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-1);
+}
+
+.role-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   7. FORMULARIOS DE LOGIN
+   -------------------------------------------------------------------------- */
+.auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.auth-form-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-form-card__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  transition: color var(--transition-fast);
+}
+
+.auth-form-card__back:hover {
+  color: var(--color-text-primary);
+}
+
+.auth-form-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.auth-form-card__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  font-size: 1.15rem;
+}
+
+.auth-form-card__header h2 {
+  font-size: 1.35rem;
+}
+
+.auth-form-card__header p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.form-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 0.85rem var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* El campo de contraseña reserva espacio a la derecha para el ícono de ojo */
+.form-field__control:has(.password-toggle) input {
+  padding-right: calc(var(--space-4) * 2 + 1rem);
+}
+
+.form-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-field input:focus {
+  border-color: var(--color-brand-bright);
+  box-shadow: 0 0 0 3px rgba(45, 108, 246, 0.15);
+  outline: none;
+}
+
+.password-toggle {
+  position: absolute;
+  right: var(--space-4);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+  display: grid;
+  place-items: center;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+.form-field:last-of-type {
+  margin-bottom: var(--space-6);
+}
+
+/* --------------------------------------------------------------------------
+   8. BOTONES
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0.9rem var(--space-5);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--student {
+  background: var(--color-student);
+  color: var(--color-text-on-brand);
+  box-shadow: 0 8px 16px -6px rgba(45, 108, 246, 0.45);
+}
+
+.btn--student:hover {
+  background: var(--color-student-dark);
+}
+
+.btn--teacher {
+  background: var(--color-teacher);
+  color: var(--color-text-on-brand);
+  box-shadow: 0 8px 16px -6px rgba(124, 58, 237, 0.45);
+}
+
+.btn--teacher:hover {
+  background: var(--color-teacher-dark);
+}
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+}
+
+.btn--ghost:hover {
+  background: var(--color-bg);
+}
+
+.demo-credentials {
+  text-align: center;
+  margin-top: var(--space-5);
+}
+
+.demo-credentials button {
+  background: none;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Variante por rol para el enlace de credenciales de prueba */
+.auth-form-card--student .demo-credentials button {
+  color: var(--color-student);
+}
+
+.auth-form-card--teacher .demo-credentials button {
+  color: var(--color-teacher);
+}
+
+/* Íconos de color por rol dentro del encabezado del formulario */
+.auth-form-card--student .auth-form-card__icon {
+  background: var(--color-student-soft);
+  color: var(--color-student);
+}
+
+.auth-form-card--teacher .auth-form-card__icon {
+  background: var(--color-teacher-soft);
+  color: var(--color-teacher);
+}
+
+/* --------------------------------------------------------------------------
+   9. VARIANTE DE BRANDING PARA PANEL DOCENTE (violeta)
+   -------------------------------------------------------------------------- */
+.brand-panel--teacher {
+  background: linear-gradient(160deg, #23124d 0%, #5b21c4 55%, var(--color-teacher) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVO — ajustes adicionales mobile-first
+   -------------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  .brand-panel {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .brand-body__lead,
+  .feature-list {
+    display: none;
+  }
+
+  .brand-header {
+    justify-content: center;
+  }
+
+  .brand-footer {
+    text-align: center;
+  }
+
+  .brand-panel {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 479px) {
+  .role-card {
+    padding: var(--space-5) var(--space-4);
+  }
+}

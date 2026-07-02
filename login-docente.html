@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión — Docente | EduRúbrica</title>
+  <meta name="description" content="Inicia sesión en EduRúbrica como docente para diseñar rúbricas y evaluar a tus estudiantes." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="auth-layout">
+    <!-- ============================= -->
+    <!-- PANEL IZQUIERDO: BRANDING     -->
+    <!-- ============================= -->
+    <header class="brand-panel brand-panel--teacher" aria-label="Presentación de EduRúbrica">
+      <div class="brand-header">
+        <span class="brand-header__logo" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+        <span class="brand-header__name">EduRúbrica</span>
+      </div>
+
+      <div class="brand-body">
+        <h1>Evaluación auténtica basada en rúbricas</h1>
+        <p class="brand-body__lead">
+          Plataforma integral para docentes y estudiantes. Crea rúbricas con Taxonomía de Bloom, evalúa con matrices interactivas y visualiza el progreso por competencias.
+        </p>
+
+        <ul class="feature-list">
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+            <span class="feature-list__text">Matrices de evaluación interactivas</span>
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
+            <span class="feature-list__text">Repositorio de rúbricas validadas</span>
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+            <span class="feature-list__text">Seguimiento de competencias por estudiante</span>
+          </li>
+        </ul>
+      </div>
+
+      <p class="brand-footer"> 2026 EduRúbrica </p>
+    </header>
+
+
+    <!-- PANEL DERECHO: FORMULARIO     -->
+
+    <main class="auth-form-panel">
+      <section class="auth-form-card auth-form-card--teacher" aria-labelledby="login-heading">
+        <a href="index.html" class="auth-form-card__back">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver
+        </a>
+
+        <div class="auth-form-card__header">
+          <span class="auth-form-card__icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+          <div>
+            <h2 id="login-heading">Acceso Docente</h2>
+            <p>Panel de evaluación</p>
+          </div>
+        </div>
+
+        <form action="#" method="post" novalidate>
+          <div class="form-field">
+            <label for="teacher-email">Correo electrónico</label>
+            <div class="form-field__control">
+              <input type="email" id="teacher-email" name="email" placeholder="ana.castillo@edurubrica.cl" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="teacher-password">Contraseña</label>
+            <div class="form-field__control">
+              <input type="password" id="teacher-password" name="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required />
+              <button type="button" class="password-toggle" data-toggle-password="teacher-password" aria-label="Mostrar contraseña" aria-pressed="false">
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--teacher">Ingresar</button>
+        </form>
+
+        <div class="demo-credentials">
+          <button type="button" id="fill-demo-teacher">Usar credenciales de prueba</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

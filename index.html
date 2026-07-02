@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduRúbrica — Evaluación educativa simplificada</title>
+  <meta name="description" content="EduRúbrica: la plataforma para crear, aplicar y dar seguimiento a rúbricas de evaluación entre docentes y estudiantes." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="auth-layout">
+
+    <!-- PANEL IZQUIERDO: BRANDING     -->
+    <header class="brand-panel" aria-label="Presentación de EduRúbrica">
+      <div class="brand-header">
+        <span class="brand-header__logo" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+        <span class="brand-header__name">EduRúbrica</span>
+      </div>
+
+      <div class="brand-body">
+        <h1>Evaluación auténtica basada en rúbricas</h1>
+        <p class="brand-body__lead">
+          Plataforma integral para docentes y estudiantes. Crea rúbricas con Taxonomía de Bloom, evalúa con matrices interactivas y visualiza el progreso por competencias.
+        </p>
+
+        <ul class="feature-list">
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+            <span class="feature-list__text">Matrices de evaluación interactivas</span>
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
+            <span class="feature-list__text">Repositorio de rúbricas validadas</span>
+          </li>
+          <li class="feature-list__item">
+            <span class="feature-list__icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+            <span class="feature-list__text">Seguimiento de competencias por estudiante</span>
+          </li>
+        </ul>
+      </div>
+
+      <p class="brand-footer"> 2026 EduRúbrica </p>
+    </header>
+
+
+    <!-- PANEL DERECHO: SELECCIÓN ROL  -->
+    <main class="selection-panel">
+      <section class="selection-panel__inner" aria-labelledby="selection-heading">
+        <div class="selection-panel__heading">
+          <h2 id="selection-heading">Iniciar sesión</h2>
+          <p>¿Cómo ingresas hoy?</p>
+        </div>
+
+        <nav class="role-grid" aria-label="Selección de tipo de cuenta">
+          <a href="login-estudiante.html" class="role-card role-card--student">
+            <span class="role-card__icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
+            <h3>Soy Estudiante</h3>
+            <p>Visualiza tu progreso, competencias y retroalimentación de tus docentes.</p>
+          </a>
+
+          <a href="login-docente.html" class="role-card role-card--teacher">
+            <span class="role-card__icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+            <h3>Soy Docente</h3>
+            <p>Evalúa con rúbricas, gestiona cursos y accede al repositorio de plantillas.</p>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
