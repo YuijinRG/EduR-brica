@@ -19,9 +19,9 @@
 </head>
 <body>
   <div class="auth-layout">
-
+    <!-- ============================= -->
     <!-- PANEL IZQUIERDO: BRANDING     -->
-
+    <!-- ============================= -->
     <header class="brand-panel" aria-label="Presentación de EduRúbrica">
       <div class="brand-header">
         <span class="brand-header__logo" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
@@ -50,7 +50,7 @@
         </ul>
       </div>
 
-      <p class="brand-footer">2026 EduRúbrica </p>
+      <p class="brand-footer">© 2026 EduRúbrica</p>
     </header>
 
     <!-- ============================= -->
@@ -70,7 +70,9 @@
           </div>
         </div>
 
-        <form action="#" method="post" novalidate>
+        <form id="form-login-estudiante" action="#" method="post" novalidate>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+
           <div class="form-field">
             <label for="student-email">Correo electrónico</label>
             <div class="form-field__control">
@@ -88,7 +90,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn--student">Ingresar</button>
+          <button type="submit" class="btn btn--student" id="btn-login-estudiante">Ingresar</button>
         </form>
 
         <div class="demo-credentials">
@@ -98,6 +100,40 @@
     </main>
   </div>
 
+  <!-- Cliente oficial de Supabase (build UMD vía CDN) -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- Tus credenciales (copia js/config.example.js → js/config.js) -->
+  <script src="js/config.js"></script>
+  <script src="js/database.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    document.getElementById("form-login-estudiante").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const boton = document.getElementById("btn-login-estudiante");
+      const errorBox = document.getElementById("form-error");
+      const correo = document.getElementById("student-email").value.trim();
+      const password = document.getElementById("student-password").value;
+
+      errorBox.hidden = true;
+      boton.disabled = true;
+      boton.textContent = "Ingresando...";
+
+      const resultado = await EduAuth.iniciarSesion(correo, password, "estudiante");
+
+      if (!resultado.ok) {
+        errorBox.textContent = resultado.mensaje;
+        errorBox.hidden = false;
+        boton.disabled = false;
+        boton.textContent = "Ingresar";
+      }
+      // Si resultado.ok es true, EduAuth ya redirigió a dashboard-estudiante.html
+    });
+  </script>
+  <script>
+  // En el archivo del estudiante usa:
+  EduAuth.protegerRuta("docente");
+</script>
 </body>
 </html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduRúbrica - Mi Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-dashboard">
+
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="brand-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>EduRúbrica</span>
+            </div>
+            <span class="badge-role role-student">Estudiante</span>
+            <nav class="header-nav">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-chart-simple"></i> Mi Panel</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-folder-open"></i> Repositorio</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <div class="user-info">
+                    <span class="user-name">Antonia Morales</span>
+                    <span class="user-meta">3° Medio B</span>
+                </div>
+                <div class="user-avatar avatar-student">AM</div>
+            </div>
+            <button onclick="cerrarSesion()" class="btn-logout" aria-label="Cerrar sesión">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <section class="student-welcome-card">
+            <div class="student-avatar-large">AM</div>
+            <div class="student-welcome-text">
+                <h1>Antonia Morales</h1>
+                <p>3° Medio B · Colegio San Ignacio · Año 2026</p>
+            </div>
+            <div class="student-stats-group">
+                <div class="stat-box">
+                    <span class="stat-label">Promedio</span>
+                    <span class="stat-value">8.3/10</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Evaluaciones</span>
+                    <span class="stat-value">14</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Logros</span>
+                    <span class="stat-value text-blue">6</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-grid-twocol">
+            
+            <section class="content-card">
+                <h2>Habilidades</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Análisis y Síntesis</span><span class="font-bold">82%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 82%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Argumentación Escrita</span><span class="font-bold">67%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 67%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Trabajo Colaborativo</span><span class="font-bold">90%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Pensamiento Creativo</span><span class="font-bold">75%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Uso Crítico de Fuentes</span><span class="font-bold">59%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 59%;"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card text-center">
+                <div class="card-header-inline">
+                    <h2>Perfil de Competencias</h2>
+                    <span class="text-muted subtitle-sm">Basado en logros de rúbricas — Semestre 1, 2026</span>
+                </div>
+                
+                <div class="radar-chart-container">
+                    <svg viewBox="0 0 400 300" class="radar-chart">
+                        <polygon points="200,30 330,105 330,245 200,310 70,245 70,105" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+                        <polygon points="200,70 295,125 295,220 200,270 105,220 105,125" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+                        <polygon points="200,110 260,145 260,200 200,230 140,200 140,145" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="200" y2="30" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="330" y2="105" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="330" y2="245" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="200" y2="310" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="70" y2="245" stroke="#E2E8F0" stroke-width="1"/>
+                        <line x1="200" y1="170" x2="70" y2="105" stroke="#E2E8F0" stroke-width="1"/>
+                        <polygon points="200,60 300,120 290,225 200,260 90,210 110,120" fill="rgba(37, 99, 235, 0.15)" stroke="#2563EB" stroke-width="2"/>
+                        <text x="200" y="20" text-anchor="middle" class="radar-label">Pensamiento Crítico</text>
+                        <text x="340" y="105" text-anchor="start" class="radar-label">Creatividad</text>
+                        <text x="340" y="250" text-anchor="start" class="radar-label">Colaboración</text>
+                        <text x="200" y="325" text-anchor="middle" class="radar-label">Comunicación</text>
+                        <text x="60" y="250" text-anchor="end" class="radar-label">Ciudadanía Digital</text>
+                        <text x="60" y="105" text-anchor="end" class="radar-label">Resolución de Problemas</text>
+                    </svg>
+                </div>
+            </section>
+        </div>
+
+        <section class="content-card margin-top-lg">
+            <div class="table-header">
+                <h2>Evaluaciones Recientes</h2>
+                <a href="#" class="link-action">Ver todas <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+            <div class="table-responsive">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>ASIGNATURA</th>
+                            <th>TAREA</th>
+                            <th>NOTA</th>
+                            <th>ESTADO</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium">Historia Universal</td>
+                            <td class="text-muted">Ensayo — Revolución Industrial</td>
+                            <td class="font-semibold text-blue"><i class="fa-solid fa-star"></i> 8.7/10</td>
+                            <td><span class="badge-status status-logrado">Logrado</span></td>
+                            <td class="text-muted">5 jun 2026</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium">Matemáticas</td>
+                            <td class="text-muted">Proyecto — Estadística Descriptiva</td>
+                            <td class="font-semibold text-blue"><i class="fa-solid fa-star"></i> 9.2/10</td>
+                            <td><span class="badge-status status-sobresaliente">Sobresaliente</span></td>
+                            <td class="text-muted">2 jun 2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Guardián frontend: si no es estudiante logueado, lo saca al index.html
+        verificarSesionProtegida('estudiante');
+    </script>
+<nav class="header-nav">
+    <a href="#" id="tab-panel" class="nav-link active" onclick="cambiarVistaEstudiante('panel')">
+        <i class="fa-solid fa-chart-simple"></i> Mi Panel
+    </a>
+    <a href="#" id="tab-repositorio" class="nav-link" onclick="cambiarVistaEstudiante('repositorio')">
+        <i class="fa-solid fa-folder-open"></i> Repositorio
+    </a>
+</nav>
+
+<main id="vista-panel" class="dashboard-container">
+    </main>
+
+<main id="vista-repositorio" class="dashboard-container" style="display: none;">
+    <div class="content-card">
+        <h2>Repositorio de Rúbricas</h2>
+        <p class="text-muted">Explora y descarga plantillas validadas por la comunidad docente chilena.</p>
+        
+        <div class="dashboard-grid-twocol" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-top: 1.5rem;">
+            
+            <div class="content-card" style="border-top: 4px solid var(--student-blue);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                    <span class="badge-status status-logrado">Historia</span>
+                    <span>⭐ 4.8 (132)</span>
+                </div>
+                <h3 style="font-size: 1rem; margin: 0.5rem 0 0.25rem 0;">Ensayo Argumentativo — Historia y Ciencias Sociales</h3>
+                <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 1rem;">Prof. Valentina Torres · Liceo Bicentenario</p>
+                
+                <div class="preview-container" id="preview-ensayo-estudiante" style="display: none;">
+                    <p class="preview-title">Vista previa de criterios:</p>
+                    <ul class="preview-list">
+                        <li>Comprensión y dominio del tema</li>
+                        <li>Calidad de la argumentación</li>
+                        <li>Uso y citación de fuentes</li>
+                        <li>Estructura y redacción del texto</li>
+                        <li>Pensamiento crítico (Bloom: Evaluar)</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem;">
+                    <button class="level-btn" onclick="togglePreview('preview-ensayo-estudiante', this)">👁️ Vista previa</button>
+                    <button class="level-btn" style="background-color: var(--student-blue); color: white; border: none;">👁️ Ver plantilla</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+</body>
+</html>

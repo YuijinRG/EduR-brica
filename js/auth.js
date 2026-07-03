@@ -1,63 +1,71 @@
 /**
- * EduRúbrica — Lógica de las pantallas de autenticación
- * Fase 1: solo interacciones de interfaz (sin backend real todavía).
+ * EduRúbrica — auth.js
+ * ------------------------------------------------------------------
+ * MODO DE DESARROLLO LOCAL (BYPASS)
+ * Permite la navegación inmediata hacia las nuevas pantallas sin internet.
+ * ------------------------------------------------------------------
  */
 
-document.addEventListener("DOMContentLoaded", () => {
-  initPasswordToggles();
-  initDemoCredentials();
-});
+const RUTAS_DASHBOARD = {
+  estudiante: "dashboard-estudiante.html",
+  docente: "dashboard-docente.html",
+};
 
 /**
- * Habilita el botón de "ojo" para mostrar/ocultar la contraseña.
+ * Simulación: Devuelve un perfil estático para que las futuras interfaces
+ * puedan renderizar el nombre del usuario y el avatar correctamente.
  */
-function initPasswordToggles() {
-  const toggles = document.querySelectorAll("[data-toggle-password]");
+async function obtenerPerfilActual() {
+  const rolSimulado = window.localStorage.getItem("demo_rol") || "docente";
+  return {
+    id: "uid-ficticio-12345",
+    nombre: rolSimulado === "estudiante" ? "Antonia" : "Dra. Ana Castillo",
+    correo: rolSimulado === "estudiante" ? "antonia@edurubrica.cl" : "ana.castillo@edurubrica.cl",
+    rol: rolSimulado,
+    avatar_color: rolSimulado === "estudiante" ? "#10b981" : "#7c3aed",
+    institucion: "Liceo Experimental Bicentenario",
+    curso: rolSimulado === "estudiante" ? "4to Medio B" : null
+  };
+}
 
-  toggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const inputId = toggle.getAttribute("data-toggle-password");
-      const input = document.getElementById(inputId);
-      const icon = toggle.querySelector("i");
-      if (!input) return;
+/**
+ * Simulación: Valida las credenciales localmente y redirige.
+ */
+async function iniciarSesion(correo, password, rolEsperado) {
+  console.log(`[Bypass Local] Intentando ingresar al portal: ${rolEsperado}`);
+  
+  // Guardamos temporalmente el rol seleccionado para mantener la coherencia
+  window.localStorage.setItem("demo_rol", rolEsperado);
 
-      const isHidden = input.type === "password";
-      input.type = isHidden ? "text" : "password";
-
-      icon.classList.toggle("fa-eye", !isHidden);
-      icon.classList.toggle("fa-eye-slash", isHidden);
-
-      toggle.setAttribute("aria-pressed", String(isHidden));
-      toggle.setAttribute("aria-label", isHidden ? "Ocultar contraseña" : "Mostrar contraseña");
-    });
+  // Generamos una pausa artificial de 600ms para emular de forma realista el retardo de red
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      window.location.href = RUTAS_DASHBOARD[rolEsperado] || "index.html";
+      resolve({ ok: true });
+    }, 600);
   });
 }
 
 /**
- * Rellena el formulario con credenciales de prueba según el rol de la página.
- * Los valores son ficticios y solo sirven para pruebas de interfaz.
+ * Simulación: Limpia el estado local y regresa a la bienvenida.
  */
-function initDemoCredentials() {
-  const studentBtn = document.getElementById("fill-demo-student");
-  const teacherBtn = document.getElementById("fill-demo-teacher");
-
-  if (studentBtn) {
-    studentBtn.addEventListener("click", () => {
-      fillCredentials("student-email", "student-password", "antonia@edurubrica.cl", "Demo1234");
-    });
-  }
-
-  if (teacherBtn) {
-    teacherBtn.addEventListener("click", () => {
-      fillCredentials("teacher-email", "teacher-password", "ana.castillo@edurubrica.cl", "Demo1234");
-    });
-  }
+async function cerrarSesion() {
+  window.localStorage.removeItem("demo_rol");
+  window.location.href = "index.html";
 }
 
-function fillCredentials(emailId, passwordId, emailValue, passwordValue) {
-  const emailInput = document.getElementById(emailId);
-  const passwordInput = document.getElementById(passwordId);
-
-  if (emailInput) emailInput.value = emailValue;
-  if (passwordInput) passwordInput.value = passwordValue;
+/**
+ * Guardián de rutas simulado: Evita que seas expulsado de los dashboards mientras los diseñas.
+ */
+async function protegerRuta(rolEsperado) {
+  console.log(`[Guardián] Bypass activo para la vista de: ${rolEsperado}`);
+  return await obtenerPerfilActual();
 }
+
+// Mantenemos la firma de tu objeto global intacta
+window.EduAuth = {
+  iniciarSesion,
+  cerrarSesion,
+  obtenerPerfilActual,
+  protegerRuta,
+};

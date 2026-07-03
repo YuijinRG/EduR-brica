@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduRúbrica - Panel de Evaluación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        :root {
+            --student-blue: #2563EB;
+            --teacher-purple: #8B5CF6;
+        }
+        /* Estilos complementarios para hacer dinámico el acordeón */
+        .accordion-content {
+            display: none;
+            padding: 1rem;
+            background-color: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+            font-size: 0.875rem;
+        }
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+        .accordion-item.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .level-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .level-btn {
+            background: white;
+            border: 1px solid #CBD5E1;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .level-btn:hover, .level-btn.selected {
+            border-color: var(--teacher-purple);
+            background-color: #F5F3FF;
+            color: #6D28D9;
+        }
+    </style>
+</head>
+<body class="bg-dashboard overflow-hidden-desktop">
+
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="brand-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>EduRúbrica</span>
+            </div>
+            <span class="badge-role role-teacher">Docente</span>
+            <nav class="header-nav">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-square-poll-horizontal"></i> Evaluación</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-folder-open"></i> Repositorio</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <div class="user-info">
+                    <span class="user-name">Prof. Ana Castillo</span>
+                    <span class="user-meta">Docente · Historia</span>
+                </div>
+                <div class="user-avatar avatar-teacher">AC</div>
+            </div>
+            <button onclick="cerrarSesion()" class="btn-logout" aria-label="Cerrar sesión">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="evaluation-meta-bar">
+        <p>Estudiante: <span class="font-semibold">Carlos Venegas</span> · Tarea: <span class="text-muted">Ensayo — Causas de la Primera Guerra Mundial · Historia, 3° B</span></p>
+    </div>
+
+    <main class="split-screen-container">
+        
+        <section class="split-left-panel">
+            <div class="document-viewer-card">
+                <div class="document-header">
+                    <div class="dots-decor"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                    <span class="document-title"><i class="fa-regular fa-file-pdf text-red"></i> portfolio_carlos_venegas.pdf</span>
+                </div>
+                <div class="document-body-content">
+                    <h2>Las Causas de la Primera Guerra Mundial: Un Análisis Multifactorial</h2>
+                    <p>La Primera Guerra Mundial (1914–1918) no fue el resultado de un solo acontecimiento, sino la culminación de décadas de tensiones políticas, rivalidades imperialistas y alianzas militares entrelazadas. El asesinato del Archiduque Francisco Fernando en Sarajevo el 28 de junio de 1914 actuó como detonante, pero las causas estructurales son más profundas y complejas.</p>
+                    <p>En primer lugar, el sistema de alianzas bipolar —la Triple Entente (Francia, Rusia, Reino Unido) frente a la Triple Alianza (Alemania, Austria-Hungría, Italia)— convirtió un conflicto regional en uno global casi automáticamente. Keegan (1998) argumenta que este sistema actuó como "un mecanismo de amplificación" que escaló la crisis en semanas.</p>
+                    <p>El imperialismo también jugó un rol central. La carrera por colonias en África y Asia generó fricciones constantes entre las potencias europeas. Las Crisis de Marruecos (1905 y 1911) casi llevaron a un conflicto abierto entre Francia y Alemania, evidenciando la fragilidad del orden internacional de la época (Ferguson, 2001).</p>
+                    <p>Finalmente, el militarismo y la carrera armamentista —especialmente el programa naval alemán que desafió la hegemonía británica— creó una lógica de seguridad preventiva que incentivaba la guerra antes que la negociación. En conclusión, la Gran Guerra fue el producto de un sistema internacional disfuncional, no de una decisión individual irresponsable.</p>
+                    <p class="text-sm text-muted" style="margin-top: 1rem;">Referencias: Keegan, J. (1998). The First World War. Hutchinson. / Ferguson, N. (2001). El horror de la guerra. Ed. Debate.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="split-right-panel">
+            
+            <div class="rubric-progress-card">
+                <div class="progress-info-inline">
+                    <span class="font-medium text-sm" id="progress-text">0/5 criterios evaluados</span>
+                    <span class="text-muted text-sm">Nota estimada: <span class="font-bold text-dark" id="score-text">—</span></span>
+                </div>
+                <div class="progress-bar-sm"><div class="progress-fill-teacher" id="progress-bar" style="width: 0%;"></div></div>
+            </div>
+
+            <div class="rubric-accordion-group">
+                
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span class="indicator-dot"></span>
+                        <span class="criterion-name">Comprensión del Tema</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-muted">Determina el nivel de apropiación teórica del estudiante:</p>
+                        <div class="level-selector">
+                            <button class="level-btn" onclick="selectLevel(this, 1)">Insuficiente</button>
+                            <button class="level-btn" onclick="selectLevel(this, 2)">Elemental</button>
+                            <button class="level-btn" onclick="selectLevel(this, 3)">Logrado</button>
+                            <button class="level-btn" onclick="selectLevel(this, 4)">Destacado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span class="indicator-dot"></span>
+                        <span class="criterion-name">Argumentación</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-muted">Estructuración coherente de premisas y conclusiones:</p>
+                        <div class="level-selector">
+                            <button class="level-btn" onclick="selectLevel(this, 1)">Insuficiente</button>
+                            <button class="level-btn" onclick="selectLevel(this, 2)">Elemental</button>
+                            <button class="level-btn" onclick="selectLevel(this, 3)">Logrado</button>
+                            <button class="level-btn" onclick="selectLevel(this, 4)">Destacado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span class="indicator-dot"></span>
+                        <span class="criterion-name">Uso de Fuentes</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-muted">Citas en formato APA y validez de la referencia:</p>
+                        <div class="level-selector">
+                            <button class="level-btn" onclick="selectLevel(this, 1)">Insuficiente</button>
+                            <button class="level-btn" onclick="selectLevel(this, 2)">Elemental</button>
+                            <button class="level-btn" onclick="selectLevel(this, 3)">Logrado</button>
+                            <button class="level-btn" onclick="selectLevel(this, 4)">Destacado</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="feedback-card" style="margin-top: 1rem;">
+                <label for="feedback-text" class="feedback-label">
+                    <i class="fa-regular fa-comment-dots"></i> Retroalimentación para el estudiante
+                </label>
+                <textarea id="feedback-text" placeholder="Escribe aquí comentarios cualitativos..."></textarea>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            item.classList.toggle('active');
+        }
+
+        let evaluados = new Set();
+        function selectLevel(button, score) {
+            const selector = button.parentElement;
+            const buttons = selector.querySelectorAll('.level-btn');
+            buttons.forEach(b => b.classList.remove('selected'));
+            
+            button.classList.add('selected');
+            
+            // Cambiar color del puntito indicador del acordeón a verde
+            const accordionItem = selector.closest('.accordion-item');
+            accordionItem.querySelector('.indicator-dot').style.backgroundColor = '#10B981';
+            
+            // Actualizar barra de progreso simulada
+            const totalCriterios = 3; 
+            evaluados.add(accordionItem);
+            
+            const progreso = (evaluados.size / totalCriterios) * 100;
+            document.getElementById('progress-bar').style.width = `${progreso}%`;
+            document.getElementById('progress-text').textContent = `${evaluados.size}/${totalCriterios} criterios evaluados`;
+            
+            if(evaluados.size === totalCriterios) {
+                document.getElementById('score-text').textContent = "9.5/10";
+                document.getElementById('score-text').style.color = "#10B981";
+            }
+        }
+
+        if(typeof verificarSesionProtegida === 'function') {
+            verificarSesionProtegida('docente');
+        }
+    </script>
+    <nav class="header-nav">
+    <a href="#" id="tab-evaluacion" class="nav-link active" onclick="cambiarVista('evaluacion')">
+        <i class="fa-solid fa-square-poll-horizontal"></i> Evaluación
+    </a>
+    <a href="#" id="tab-repositorio" class="nav-link" onclick="cambiarVista('repositorio')">
+        <i class="fa-solid fa-folder-open"></i> Repositorio
+    </a>
+</nav>
+
+<main id="vista-evaluacion" class="split-screen-container">
+    </main>
+
+<main id="vista-repositorio" class="dashboard-container" style="display: none;">
+    <div class="content-card">
+        <h2>Repositorio de Rúbricas</h2>
+        <p class="text-muted">Explora y descarga plantillas validadas por la comunidad docente chilena.</p>
+        
+        <div class="dashboard-grid-twocol" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-top: 1.5rem;">
+            
+            <div class="content-card" style="border-top: 4px solid var(--student-blue);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                    <span class="badge-status status-logrado">Historia</span>
+                    <span>⭐ 4.8 (132)</span>
+                </div>
+                <h3 style="font-size: 1rem; margin: 0.5rem 0 0.25rem 0;">Ensayo Argumentativo — Historia y Ciencias Sociales</h3>
+                <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 1rem;">Prof. Valentina Torres · Liceo Bicentenario</p>
+                
+                <div class="preview-container" id="preview-ensayo" style="display: none;">
+                    <p class="preview-title">Vista previa de criterios:</p>
+                    <ul class="preview-list">
+                        <li>Comprensión y dominio del tema</li>
+                        <li>Calidad de la argumentación</li>
+                        <li>Uso y citación de fuentes</li>
+                        <li>Estructura y redacción del texto</li>
+                        <li>Pensamiento crítico (Bloom: Evaluar)</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem;">
+                    <button class="level-btn" onclick="togglePreview('preview-ensayo', this)">👁️ Vista previa</button>
+                    <button class="level-btn" style="background-color: var(--student-blue); color: white; border: none;">📥 Usar</button>
+                </div>
+            </div>
+
+            </div>
+    </div>
+</main>
+</body>
+</html>
